@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { Grid } from "@mui/material";
+import React from "react";
+import PickupAdrress from "./components/PickupAdrress";
+import PickupInformation from "./components/PickupInformation";
+import PickupNotifications from "./components/PickupNotifications";
+import SchedulePickup from "./components/SchedulePickup";
+import ShipmentDetails from "./components/ShipmentDetails";
 
 function App() {
+  const [expanded, setExpanded] = React.useState(true);
+
+  const handleHideChange = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      style={{
+        flex: 1,
+        padding: 20,
+        margin: 0,
+        border: 0,
+        overflow: "hidden",
+      }}>
+      <Grid
+        container
+        direction="column"
+        justifyContent="space-around"
+        alignItems="stretch"
+        spacing={2}>
+        <Grid item xs={8}>
+          <PickupAdrress
+            expanded={expanded}
+            handleHideChange={handleHideChange}
+          />
+        </Grid>
+        <Grid item xs={8}>
+          <PickupInformation />
+        </Grid>
+        <Grid item xs={8}>
+          <PickupNotifications />
+        </Grid>
+        <Grid item xs={8}>
+          <ShipmentDetails />
+        </Grid>
+        <Grid item xs={8}>
+          <SchedulePickup />
+        </Grid>
+      </Grid>
     </div>
   );
 }

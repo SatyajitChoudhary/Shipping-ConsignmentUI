@@ -1,0 +1,35 @@
+export const countries = [
+    null,
+    {
+        id:0,
+        name:'India'
+    },
+    {
+        id:1,
+        name:'India'
+    },
+    {
+        id:2,
+        name:'India'
+    },
+    {
+        id:3,
+        name:'India'
+    },
+    {
+        id:4,
+        name:'India'
+    },
+    {
+        id:5,
+        name:'India'
+    },
+    {
+        id:6,
+        name:'India'
+    },
+    {
+        id:7,
+        name:'India'
+    },
+]
