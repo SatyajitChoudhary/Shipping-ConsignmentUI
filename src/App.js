@@ -20,7 +20,7 @@ function App() {
         padding: 20,
         margin: 0,
         border: 0,
-        overflow: "hidden",
+        // overflow: "hidden",
       }}>
       <Grid
         container

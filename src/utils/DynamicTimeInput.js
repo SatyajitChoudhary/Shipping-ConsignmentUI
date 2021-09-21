@@ -1,10 +1,11 @@
-import React,{ useState,useEffect } from "react";
-import moment from 'moment'
+import React, { useState, useEffect } from "react";
 
 export default function DynamicTimeInput(props) {
   const { time, setTime } = props;
-  const { inputTitle, id, isRequired, width,height,dateStart } =
-    props;
+  const { inputTitle, id, isRequired, width, height, dateStart } = props;
+  const hh = dateStart.hour();
+  const mm = dateStart.minute();
+  const [value, setvalue] = useState([]);
 
   const handeChange = (e) => {
     setTime(e.target.value);
@@ -14,18 +15,12 @@ export default function DynamicTimeInput(props) {
     setTime("");
   };
 
-  const [value, setvalue] = useState([])
-
   useEffect(() => {
-      getAll(dateStart)
-  }, [dateStart])
+    getAll(dateStart);
+  }, [dateStart]);
 
-  const getAll = (dateStart) => {
-    // let [hh, mm] = dateStart.split(":");
-    let hh = dateStart.hour()
-    let mm = dateStart.minute()
+  const getAll = () => {
     let vales = [];
-    console.log("Oila",hh,mm,dateStart)
 
     for (let i = hh; i < 24; i++) {
       for (let j = 0; j < 60; j += 15) {
@@ -35,7 +30,6 @@ export default function DynamicTimeInput(props) {
           );
       }
     }
-    // console.log("Value",vales)
     setvalue(vales);
   };
 
@@ -46,7 +40,8 @@ export default function DynamicTimeInput(props) {
         alignContent: "center",
         justifyContent: "flex-start",
         marginBottom: 10,
-      }}>
+      }}
+    >
       <label style={{ display: "block", width: 180 }} htmlFor={id}>
         {inputTitle}
       </label>
@@ -62,17 +57,13 @@ export default function DynamicTimeInput(props) {
         onFocus={cleanInp}
         value={time}
         onChange={handeChange}
-        list="cars"
+        list={`time-${hh}:${mm}`}
         id={id}
       />
-      {console.log("Logging",value)}
-      <datalist id="cars">
-        {value.map((item) => {
-            if(moment(dateStart,"hh:mm").isBefore(moment(item,"hh:mm")))
-                return (<option key={item} value={item} />)
-            else
-                return null
-        })}
+      <datalist id={`time-${hh}:${mm}`}>
+        {value.map((item) => (
+          <option key={item} value={item} />
+        ))}
       </datalist>
     </div>
   );

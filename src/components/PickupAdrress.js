@@ -6,6 +6,7 @@ import { countries } from "../assets/country";
 import { state as StateData } from "../assets/state";
 import DynamicInput from "../utils/DynamicInput";
 import DynamicCheckbox from "../utils/DynamicCheckbox";
+import DynamicSearchInput from "../utils/DynamicSearchInput";
 
 const PickupAdrress = (props) => {
   const { expanded, handleHideChange } = props;
@@ -98,7 +99,7 @@ const PickupAdrress = (props) => {
             </Grid>
 
             <Grid item xs={5}>
-              <DynamicInput
+              <DynamicSearchInput
                 inputTitle={"*Company "}
                 inputValue={company}
                 setInput={setCompany}
