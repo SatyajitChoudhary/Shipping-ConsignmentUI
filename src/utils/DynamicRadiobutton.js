@@ -1,8 +1,17 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 
 export default function DynamicRadiobutton(props) {
-  const { radiobuttonTitle, radiobuttonChecked, radiobuttonOptions, inputProps,handleOnChange,id,width,isRequired,readOnly } =
-    props;
+  const {
+    radiobuttonTitle,
+    radiobuttonChecked,
+    radiobuttonOptions,
+    inputProps,
+    handleOnChange,
+    id,
+    width,
+    isRequired,
+    readOnly,
+  } = props;
 
   return (
     <div
@@ -18,10 +27,17 @@ export default function DynamicRadiobutton(props) {
         }}>
         {radiobuttonTitle}
       </label>
-      <div style={{ display: "flex",  width: "50%" }}>
+      <div style={{ display: "flex", width: "50%" }}>
         {radiobuttonOptions.map((options, index) => {
           return (
-            <div key={index} style={{ width: 180,display:'flex',alignItems:'center',justifyContent: "space-evenly" }}>
+            <div
+              key={index}
+              style={{
+                width: 180,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+              }}>
               <input
                 style={{
                   width: 20,
@@ -34,11 +50,13 @@ export default function DynamicRadiobutton(props) {
                 id={`custom-radiobutton-${index}`}
                 name={id}
                 value={options}
-                checked={radiobuttonChecked===options}
-                onChange={() => {!readOnly &&handleOnChange(options)}}
+                checked={radiobuttonChecked === options}
+                onChange={() => {
+                  !readOnly && handleOnChange(options);
+                }}
                 {...inputProps}
                 required={isRequired}
-                readOnly={readOnly?readOnly:false}
+                readOnly={readOnly ? readOnly : false}
               />
               <label
                 style={{ display: "block", width: 140 }}

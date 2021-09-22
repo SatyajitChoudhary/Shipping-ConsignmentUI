@@ -110,7 +110,7 @@ const ShipmentTable = (props) => {
     },
     {
       field: "handlingUnits",
-      minWidth: 150,
+      width: 150,
       headerName: "*Handling Units",
       editable: enabledRow,
       valueFormatter: (params) => {
@@ -121,7 +121,7 @@ const ShipmentTable = (props) => {
     },
     {
       field: "weight",
-      minWidth: 150,
+      width: 150,
       headerName: "*Weight(lbs)",
       editable: enabledRow,
       valueFormatter: (params) => {
@@ -151,7 +151,7 @@ const ShipmentTable = (props) => {
     setDisabledButtons(selectedRows.length === 0);
   };
   return (
-    <div className="ag-theme-alpine" style={{ height: 500, width: 1400 }}>
+    <div className="ag-theme-alpine" style={{ height: 500, width: 1200 }}>
       <AgGridReact
         rowSelection="multiple"
         rowData={rowData}

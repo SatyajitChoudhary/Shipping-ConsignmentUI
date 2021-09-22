@@ -67,7 +67,8 @@ const PickupAdrress = (props) => {
         city.length &&
         company &&
         company.length &&
-        state && state.name && 
+        state &&
+        state.name &&
         state.name.length &&
         contactName &&
         contactName.length &&
@@ -82,7 +83,7 @@ const PickupAdrress = (props) => {
         setfirstClose(true);
       }
     }
-  }
+  };
 
   return (
     <div style={{ border: "2px solid #b83efa", backgroundColor: "#efefef" }}>
@@ -100,13 +101,14 @@ const PickupAdrress = (props) => {
             fontSize: 14,
             borderTop: "3px solid #b83efa",
             margin: 0,
-          }} onBlur={onBlurHandler}>
+          }}>
           <Grid
             container
             direction="row"
             alignItems="center"
             justifyContent="flex-start"
-            spacing={4}>
+            spacing={4}
+            onBlur={onBlurHandler}>
             <Grid item xs={5}>
               <DynamicSelect
                 options={countries}

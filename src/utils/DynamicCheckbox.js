@@ -19,7 +19,7 @@ export default function DynamicCheckbox(props) {
       style={{
         display: "flex",
         justifyContent: "flex-start",
-        marginBottom:10
+        marginBottom: 10,
       }}>
       <label
         style={{

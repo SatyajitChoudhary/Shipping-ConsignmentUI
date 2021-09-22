@@ -9,7 +9,7 @@ const checkNumber = (obj, num) =>
 
 const SchedulePickup = (props) => {
   const { enablePickup, gridApi, setGridApi } = props;
-  const history = useHistory()
+  const history = useHistory();
 
   const schedulePickupHandler = () => {
     //do validations

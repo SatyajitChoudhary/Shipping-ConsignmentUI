@@ -34,14 +34,13 @@ const DynamicSelect = (props) => {
         {options &&
           options.length > 0 &&
           options.map((option, index) => {
-            if(option)
+            if (option)
               return (
                 <option key={option.id} value={option.id}>
                   {option.name}
                 </option>
               );
-            else
-                return <option key={`indexNull`} value={''}></option>
+            else return <option key={`indexNull`} value={""}></option>;
           })}
       </select>
     </div>

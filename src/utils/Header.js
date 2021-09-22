@@ -4,13 +4,20 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import React from "react";
 
 const Header = (props) => {
-  const { headerTitle, hidePresent, hideValue, helpPresent, editPresent ,onHideClick,onEditHandler } =
-    props;
+  const {
+    headerTitle,
+    hidePresent,
+    hideValue,
+    helpPresent,
+    editPresent,
+    onHideClick,
+    onEditHandler,
+  } = props;
   return (
-    <div style={{color:'#b83efa'}}>
+    <div style={{ color: "#b83efa" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{ padding: 5, fontWeight:'bold'}}>{headerTitle}</div>
-        <div style={{ display: "flex", justifyContent: "space-evenly", }}>
+        <div style={{ padding: 5, fontWeight: "bold" }}>{headerTitle}</div>
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
           {helpPresent && (
             <div
               style={{
@@ -18,10 +25,11 @@ const Header = (props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
-                textDecoration: "underline",cursor:'pointer'
+                textDecoration: "underline",
+                cursor: "pointer",
               }}>
               <HelpOutlineIcon />
-              <span style={{color:'#3e3e3e'}}>Help</span>
+              <span style={{ color: "#3e3e3e" }}>Help</span>
             </div>
           )}
           {hidePresent && (
@@ -31,14 +39,18 @@ const Header = (props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
-                textDecoration: "underline",cursor:'pointer'
-              }} onClick={onHideClick}>
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={onHideClick}>
               {hideValue ? (
                 <IndeterminateCheckBoxOutlinedIcon />
               ) : (
                 <AddBoxOutlinedIcon />
               )}
-              <span style={{color:'#3e3e3e'}}>{hideValue ? "Hide" : "Show"}</span>
+              <span style={{ color: "#3e3e3e" }}>
+                {hideValue ? "Hide" : "Show"}
+              </span>
             </div>
           )}
           {editPresent && (
@@ -48,10 +60,12 @@ const Header = (props) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
-                textDecoration: "underline",cursor:'pointer'
-              }} onClick={onEditHandler}>
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={onEditHandler}>
               <AddBoxOutlinedIcon />
-              <span style={{color:'#3e3e3e'}}>Edit</span>
+              <span style={{ color: "#3e3e3e" }}>Edit</span>
             </div>
           )}
         </div>

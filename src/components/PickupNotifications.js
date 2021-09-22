@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Header from "../utils/Header";
 
-
 const PickupNotifications = (props) => {
-  
-
   return (
     <div style={{ border: "2px solid #3e3e3e", backgroundColor: "#efefef" }}>
-      <Header headerTitle={"Pickup Notifications(optional)"} helpPresent={true} editPresent={true}/>
+      <Header
+        headerTitle={"Pickup Notifications(optional)"}
+        helpPresent={true}
+        editPresent={true}
+      />
       <div
         style={{
           padding: "15px 5px",
@@ -25,4 +26,3 @@ const PickupNotifications = (props) => {
 };
 
 export default PickupNotifications;
-
