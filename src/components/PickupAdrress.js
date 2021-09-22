@@ -9,7 +9,9 @@ import DynamicCheckbox from "../utils/DynamicCheckbox";
 import DynamicSearchInput from "../utils/DynamicSearchInput";
 
 const PickupAdrress = (props) => {
-  const { expanded, handleHideChange } = props;
+  const { expanded, setExpanded, handleHideChange } = props;
+
+  const [firstClosed, setfirstClose] = useState(false);
 
   const [optionSelected, setOptionSelected] = useState("");
   const onChangeCountry = (event) => {
@@ -22,14 +24,16 @@ const PickupAdrress = (props) => {
   const [stateOptions, setstateOptions] = useState(() =>
     StateData.filter((states) => states.countryId == 0)
   );
-  const [state, setState] = useState(StateData[0]);
+  const [state, setState] = useState("");
   useEffect(() => {
     if (optionSelected) {
       let selectedState = StateData.filter((states, index) => {
         return states.countryId == optionSelected;
       });
-      setstateOptions(selectedState);
-      setState(selectedState[0]);
+      if (selectedState && selectedState.length) {
+        setstateOptions(selectedState);
+        setState(selectedState[0]);
+      }
     } else {
       setstateOptions([]);
     }
@@ -54,8 +58,34 @@ const PickupAdrress = (props) => {
     setResidence(updatedCheckedState);
   };
 
+  //Validation for all fields
+  const onBlurHandler = () => {
+    if (!firstClosed) {
+      if (
+        optionSelected &&
+        city &&
+        city.length &&
+        company &&
+        company.length &&
+        state && state.name && 
+        state.name.length &&
+        contactName &&
+        contactName.length &&
+        postalCode &&
+        postalCode.toString().length &&
+        address1 &&
+        address1.length &&
+        phone &&
+        phone.toString().length
+      ) {
+        setExpanded(false);
+        setfirstClose(true);
+      }
+    }
+  }
+
   return (
-    <div style={{ border: "2px solid #b83efa",backgroundColor:'#efefef' }}>
+    <div style={{ border: "2px solid #b83efa", backgroundColor: "#efefef" }}>
       <Header
         headerTitle={"Pickup Address"}
         helpPresent={true}
@@ -70,7 +100,7 @@ const PickupAdrress = (props) => {
             fontSize: 14,
             borderTop: "3px solid #b83efa",
             margin: 0,
-          }}>
+          }} onBlur={onBlurHandler}>
           <Grid
             container
             direction="row"
@@ -176,12 +206,12 @@ const PickupAdrress = (props) => {
 
             <Grid item xs={10}>
               <DynamicInput
-                inputTitle={"*Address2 "}
+                inputTitle={"Address2 "}
                 inputValue={address2}
                 setInput={setAddress2}
                 id={"Address2"}
                 type={"text"}
-                isRequired={true}
+                isRequired={false}
               />
             </Grid>
             <Grid item xs={10}>

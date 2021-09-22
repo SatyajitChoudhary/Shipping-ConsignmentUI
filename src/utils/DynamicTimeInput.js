@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export default function DynamicTimeInput(props) {
   const { time, setTime } = props;
-  const { inputTitle, id, isRequired, width, height, dateStart } = props;
+  const { inputTitle, id, isRequired, width, height, dateStart,readOnly } = props;
   const hh = dateStart.hour();
   const mm = dateStart.minute();
   const [value, setvalue] = useState([]);
@@ -54,6 +54,7 @@ export default function DynamicTimeInput(props) {
           height: `${height ? height : "25px"}`,
           borderRadius: 3,
         }}
+        readOnly={readOnly?readOnly:false}
         onFocus={cleanInp}
         value={time}
         onChange={handeChange}

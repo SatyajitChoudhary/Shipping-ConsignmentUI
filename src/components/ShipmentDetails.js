@@ -5,28 +5,36 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import ShipmentTable from "./ShipmentTable";
 
 const ShipmentDetails = (props) => {
-  const [gridApi, setGridApi] = useState(null);
-  const [rowData, setRowData] = useState([])
+  const {
+    rowData,
+    setRowData,
+    setenablePickup,
+    enablePickup,
+    gridApi,
+    setGridApi,
+  } = props;
+  const [disabledButtons, setdisabledButtons] = useState(true);
+
+  const getAllRows = () => {
+    let rowData = [];
+    gridApi.forEachNode((node) => rowData.push(node.data));
+    return rowData;
+  };
 
   const deleteRowHandler = () => {
     const selectedRows = gridApi.getSelectedRows();
     gridApi.applyTransaction({ remove: selectedRows });
 
-    gridApi.stopEditing();
-    
-    if(rowData.length>0)
-      gridApi.startEditingCell({
-        rowIndex: rowData.length-1,
-      });
+    gridApi.stopEditing(true);
+
+    setenablePickup(getAllRows().length > 0);
   };
   const addRowHandler = () => {
     gridApi.applyTransaction({ add: [{}] });
-    
-    gridApi.stopEditing();
 
-    gridApi.startEditingCell({
-      rowIndex: rowData.length-1,
-    });
+    gridApi.stopEditing(true);
+
+    setenablePickup(getAllRows().length > 0);
   };
 
   return (
@@ -42,7 +50,14 @@ const ShipmentDetails = (props) => {
           flexDirection: "column",
           justifyContent: "space-between",
         }}>
-        <ShipmentTable gridApi={gridApi} setGridApi={setGridApi} rowData={rowData} setRowData={setRowData}/>
+        <ShipmentTable
+          gridApi={gridApi}
+          setGridApi={setGridApi}
+          rowData={rowData}
+          setRowData={setRowData}
+          disabledButtons={disabledButtons}
+          setDisabledButtons={setdisabledButtons}
+        />
         <div
           style={{
             display: "flex",
@@ -53,11 +68,15 @@ const ShipmentDetails = (props) => {
           <button
             type="button"
             onClick={deleteRowHandler}
+            disabled={disabledButtons}
             style={{
               margin: 5,
-              backgroundColor: "#aaaaaa",
-              color: "#ffffff",
-              border: 0,
+              backgroundColor: `${disabledButtons ? "#ffffff" : "#3a3a3a"}`,
+              color: `${disabledButtons ? "#aeaeae" : "#ffffff"}`,
+              borderWidth: 1,
+              borderRadius: 3,
+              borderStyle: "solid",
+              borderColor: `${disabledButtons ? "#aeaeae" : "#ffffff"}`,
               padding: 5,
             }}>
             Delete Row

@@ -1,8 +1,18 @@
 import React from "react";
 
 const DynamicInput = (props) => {
-  const { inputTitle, inputValue, setInput, id, type, isRequired, width,inputProps,height } =
-    props;
+  const {
+    inputTitle,
+    inputValue,
+    setInput,
+    id,
+    type,
+    isRequired,
+    width,
+    inputProps,
+    height,
+    readOnly,
+  } = props;
 
   return (
     <div
@@ -10,11 +20,9 @@ const DynamicInput = (props) => {
         display: "flex",
         alignContent: "center",
         justifyContent: "flex-start",
-        marginBottom:10
+        marginBottom: 10,
       }}>
-      <label
-        style={{ display: "block", width: 180 }}
-        htmlFor={id}>
+      <label style={{ display: "block", width: 180 }} htmlFor={id}>
         {inputTitle}
       </label>
       <input
@@ -27,6 +35,7 @@ const DynamicInput = (props) => {
           height: `${height ? height : "25px"}`,
           borderRadius: 3,
         }}
+        readOnly={readOnly ? readOnly : false}
         onChange={(e) => setInput(e.target.value)}
         value={inputValue}
         {...inputProps}

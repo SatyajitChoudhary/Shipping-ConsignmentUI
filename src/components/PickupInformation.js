@@ -10,8 +10,7 @@ import DynamicTextarea from "../utils/DynamicTextarea";
 import DynamicTimeInput from "../utils/DynamicTimeInput";
 
 const PickupInformation = (props) => {
-  const [editMode, seteditMode] = useState(true);
-
+  const { editMode, seteditMode } = props;
   const onEditClick = () => {
     seteditMode(!editMode);
   };
@@ -21,7 +20,6 @@ const PickupInformation = (props) => {
 
   const [readyTime, setReadyTime] = useState("");
   const [closeTime, setCloseTime] = useState("");
-
 
   const [pickupContact, setpickupContact] = useState("");
 
@@ -34,7 +32,14 @@ const PickupInformation = (props) => {
     setSpecialServices(updatedCheckedState);
   };
 
-  const [specialInstructions, setspecialInstructions] = useState("")
+  const [specialInstructions, setspecialInstructions] = useState("");
+
+  const onBlurHandler = () => {
+    if (editMode) {
+      if (pickupDate && readyTime && closeTime && pickupContact)
+        seteditMode(false);
+    }
+  };
 
   return (
     <div style={{ border: "2px solid #b83efa", backgroundColor: "#efefef" }}>
@@ -50,14 +55,18 @@ const PickupInformation = (props) => {
           fontSize: 14,
           borderTop: "3px solid #b83efa",
           margin: 0,
-        }}>
+        }}
+        onBlur={onBlurHandler}>
         <Grid
           container
           direction="row"
           alignItems="stretch"
           justifyContent="flex-start"
           spacing={4}>
-          <Grid item xs={5}>
+          <Grid
+            item
+            xs={5}
+            style={{ pointerEvents: `${!editMode ? "none" : "auto"}` }}>
             <div
               style={{
                 display: "flex",
@@ -73,22 +82,25 @@ const PickupInformation = (props) => {
                 type={"date"}
                 isRequired={true}
                 inputProps={{ min: minDate }}
+                readOnly={!editMode}
               />
               <DynamicTimeInput
                 inputTitle={"*Ready time"}
                 time={readyTime}
                 setTime={setReadyTime}
                 id={"Ready time"}
-                dateStart={moment("00:00","hh:mm")}
+                dateStart={moment("00:00", "hh:mm")}
                 isRequired={true}
+                readOnly={!editMode}
               />
               <DynamicTimeInput
                 inputTitle={"*Close time"}
                 time={closeTime}
                 setTime={setCloseTime}
                 id={"Close time"}
-                dateStart={moment(readyTime,"hh:mm").add(30,'m')}
+                dateStart={moment(readyTime, "hh:mm").add(30, "m")}
                 isRequired={true}
+                readOnly={!editMode}
               />
               <DynamicRadiobutton
                 radiobuttonTitle={"*Pickup contact"}
@@ -97,15 +109,19 @@ const PickupInformation = (props) => {
                 handleOnChange={setpickupContact}
                 id={"Pickup Contact"}
                 isRequired={true}
+                readOnly={!editMode}
               />
             </div>
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={6}>
-            <div style={{display: "flex",
+            <div
+              style={{
+                display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                alignItems: "flex-start",}}>
+                alignItems: "flex-start",
+              }}>
               <DynamicCheckbox
                 checkBoxTitle={"Special services"}
                 checkboxOptions={specialServices}
@@ -113,7 +129,8 @@ const PickupInformation = (props) => {
                 setCheckState={setSpecialServices}
                 handleOnChange={handleOnSpecialServicesChange}
               />
-              <DynamicTextarea inputTitle={"Special instructions"}
+              <DynamicTextarea
+                inputTitle={"Special instructions"}
                 inputValue={specialInstructions}
                 setInput={setspecialInstructions}
                 id={"Special instructions"}
@@ -121,7 +138,7 @@ const PickupInformation = (props) => {
                 isRequired={false}
                 height={"100px"}
                 width={"300px"}
-                />
+              />
             </div>
           </Grid>
         </Grid>

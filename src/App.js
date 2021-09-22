@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import PickupAdrress from "./components/PickupAdrress";
 import PickupInformation from "./components/PickupInformation";
 import PickupNotifications from "./components/PickupNotifications";
@@ -7,11 +7,16 @@ import SchedulePickup from "./components/SchedulePickup";
 import ShipmentDetails from "./components/ShipmentDetails";
 
 function App() {
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = useState(true);
+  const [editMode, seteditMode] = useState(true);
 
   const handleHideChange = () => {
     setExpanded(!expanded);
   };
+
+  const [rowData, setrowData] = useState([]);
+  const [gridApi, setGridApi] = useState(null);
+  const [enablePickup, setenablePickup] = useState(false);
 
   return (
     <div
@@ -32,20 +37,43 @@ function App() {
           <PickupAdrress
             expanded={expanded}
             handleHideChange={handleHideChange}
+            setExpanded={setExpanded}
           />
         </Grid>
-        <Grid item xs={8}>
-          <PickupInformation />
-        </Grid>
-        <Grid item xs={8}>
-          <PickupNotifications />
-        </Grid>
-        <Grid item xs={8}>
-          <ShipmentDetails />
-        </Grid>
-        <Grid item xs={8}>
-          <SchedulePickup />
-        </Grid>
+        {!expanded && (
+          <>
+            <Grid item xs={8}>
+              <PickupInformation
+                editMode={editMode}
+                seteditMode={seteditMode}
+              />
+            </Grid>
+            {!editMode && (
+              <>
+                <Grid item xs={8}>
+                  <PickupNotifications />
+                </Grid>
+                <Grid item xs={8}>
+                  <ShipmentDetails
+                    rowData={rowData}
+                    setRowData={setrowData}
+                    enablePickup={enablePickup}
+                    setenablePickup={setenablePickup}
+                    gridApi={gridApi}
+                    setGridApi={setGridApi}
+                  />
+                </Grid>
+                <Grid item xs={8}>
+                  <SchedulePickup
+                    enablePickup={enablePickup}
+                    gridApi={gridApi}
+                    setGridApi={setGridApi}
+                  />
+                </Grid>
+              </>
+            )}
+          </>
+        )}
       </Grid>
     </div>
   );

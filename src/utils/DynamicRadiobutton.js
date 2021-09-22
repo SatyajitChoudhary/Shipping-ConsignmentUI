@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 
 export default function DynamicRadiobutton(props) {
-  const { radiobuttonTitle, radiobuttonChecked, radiobuttonOptions, inputProps,handleOnChange,id,width,isRequired } =
+  const { radiobuttonTitle, radiobuttonChecked, radiobuttonOptions, inputProps,handleOnChange,id,width,isRequired,readOnly } =
     props;
 
   return (
@@ -35,9 +35,10 @@ export default function DynamicRadiobutton(props) {
                 name={id}
                 value={options}
                 checked={radiobuttonChecked===options}
-                onChange={() => handleOnChange(options)}
+                onChange={() => {!readOnly &&handleOnChange(options)}}
                 {...inputProps}
                 required={isRequired}
+                readOnly={readOnly?readOnly:false}
               />
               <label
                 style={{ display: "block", width: 140 }}
